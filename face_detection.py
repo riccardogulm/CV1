@@ -59,7 +59,6 @@ def process_frame():
             frame = frame_queue.get()
             
             if frame is None or not isinstance(frame, np.ndarray):
-                print("Warning: Received an invalid frame")
                 continue  # Skip this frame
 
             # Resize the image to 300x300
@@ -108,7 +107,7 @@ def detect_faces():
                     box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
                     (startX, startY, endX, endY) = box.astype("int")
                     cv2.rectangle(image_mobilenet, (startX, startY), (endX, endY), (0, 255, 0), 2)
-                    label = f"Confidence: {confidence * 100:.2f}%"
+                    label = f"MobileNet -Confidence: {confidence * 100:.2f}%"
                     cv2.putText(image_mobilenet, label, (startX, startY - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 255, 0), 2)
 
             # Draw rectangles for Haar Cascade detection
